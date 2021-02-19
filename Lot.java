@@ -5,7 +5,7 @@
  * @author David J. Barnes and Michael Kölling.
  * @version 2011.07.31
  */
-public class Lot
+public class Lot 
 {
     // A unique identifying number.
     private final int number;
