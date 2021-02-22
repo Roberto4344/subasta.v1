@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * A simple model of an auction.
@@ -99,4 +100,20 @@ public class Auction
             return null;
         }
     }
+
+    /**
+     * nos da los datos de los objetos vendidos a quien y por cuanto
+     */
+    public void close(){
+        for(Lot lot : lots){
+            if(lot.getHighestBid() != null){
+                System.out.println(lot.toString()+" "+lot.getHighestBid().getBidder().getName());
+            }
+            
+            else {
+                System.out.println(lot.getNumber()+":"+ " "+lot.getDescription()+" No hubo pujas por este articulo");
+            }
+        }
+    }
 }
+
