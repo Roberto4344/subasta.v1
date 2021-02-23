@@ -109,11 +109,23 @@ public class Auction
             if(lot.getHighestBid() != null){
                 System.out.println(lot.toString()+" "+lot.getHighestBid().getBidder().getName());
             }
-            
+
             else {
                 System.out.println(lot.getNumber()+":"+ " "+lot.getDescription()+" No hubo pujas por este articulo");
             }
         }
     }
+
+    public ArrayList<Lot> getUnsold(){  
+        ArrayList<Lot> unSold = new ArrayList<Lot>();
+        
+        for(Lot lot : lots){
+            if(lot.getHighestBid() == null){   
+              unSold.add(lot);
+            }
+        }
+        return unSold;
+    }
+
 }
 
