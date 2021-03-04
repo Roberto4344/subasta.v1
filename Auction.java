@@ -77,28 +77,20 @@ public class Auction
      * if a lot with this number does not exist.
      * @param lotNumber The number of the lot to return.
      */
-    public Lot getLot(int lotNumber)
-    {
-        if((lotNumber >= 1) && (lotNumber < nextLotNumber)) {
-            // The number seems to be reasonable.
-            Lot selectedLot = lots.get(lotNumber - 1);
-            // Include a confidence check to be sure we have the
-            // right lot.
-            if(selectedLot.getNumber() != lotNumber) {
-                System.out.println("Internal error: Lot number " +
-                    selectedLot.getNumber() +
-                    " was returned instead of " +
-                    lotNumber);
-                // Don't return an invalid lot.
-                selectedLot = null;
+    public Lot getLot(int lotNumber){
+        Lot choseLot = null;
+        if(lotNumber >= 1){
+            Iterator<Lot> it = lots.iterator();
+            boolean searching = true;
+            while(it.hasNext() && searching){
+                Lot otherLot = it.next();
+                if(otherLot.getNumber() == lotNumber){
+                    choseLot = otherLot;
+                    searching = false;
+                }
             }
-            return selectedLot;
         }
-        else {
-            System.out.println("Lot number: " + lotNumber +
-                " does not exist.");
-            return null;
-        }
+        return choseLot;
     }
 
     /**
@@ -118,14 +110,32 @@ public class Auction
 
     public ArrayList<Lot> getUnsold(){  
         ArrayList<Lot> unSold = new ArrayList<Lot>();
-        
         for(Lot lot : lots){
             if(lot.getHighestBid() == null){   
-              unSold.add(lot);
+                unSold.add(lot);
             }
         }
         return unSold;
     }
 
+    /** 
+     * Elimina el lote con el número de lote especificado.
+     * @param number El número del lote que hay que eliminar,
+     * @return El lote con el número dado o null si no existe tal lote.
+     */
+    public Lot removeLot(int lotNumber){
+        Lot selectedLot = null;
+        Iterator<Lot> it = lots.iterator();        
+        if(lotNumber >= 1){               
+            while (it.hasNext()){
+                Lot anotherLot = it.next();
+                if(anotherLot.getNumber() == lotNumber){
+                    selectedLot = anotherLot;
+                    it.remove();
+                }
+            }
+        }
+        return selectedLot;
+    }
 }
 
